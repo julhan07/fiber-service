@@ -8,16 +8,16 @@ type payload struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func ResponseSuccess(c *fiber.Ctx, code *int, msg *string, data *interface{}) {
-	c.JSONP(&payload{
-		Code:    *code,
-		Message: *msg,
-		Data:    *data,
+func ResponseSuccess(c *fiber.Ctx, code int, msg string, data *interface{}) error {
+	return c.JSON(&payload{
+		Code:    code,
+		Message: msg,
+		Data:    data,
 	})
 }
 
 func ResponseError(c *fiber.Ctx, code int, msg string) error {
-	return c.JSONP(&payload{
+	return c.JSON(&payload{
 		Code:    code,
 		Message: msg,
 	})
